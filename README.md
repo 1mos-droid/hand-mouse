@@ -9,12 +9,18 @@ This project allows you to control your computer's mouse using hand gestures cap
 *   **MediaPipe**: Google's open-source framework for building multimodal (e.g., video, audio, any time series data) applied ML pipelines. We use it for hand tracking.
 *   **PyAutoGUI**: A cross-platform GUI automation Python module used to programmatically control the mouse and keyboard.
 *   **NumPy**: A fundamental package for scientific computing with Python, used here for numerical operations.
+*   **PyGetWindow**: Used to control application windows, for example, to minimize them.
 
-## Features
+## Gestures
 
-*   **Mouse Movement**: Control the cursor by moving your index finger.
+*   **Mouse Movement**: Move the cursor by moving your index finger.
 *   **Clicking**: Perform a click by pinching your thumb and index finger together.
-*   **Configurable Controls**: Easily adjust settings like mouse smoothing and click sensitivity.
+*   **Close Window**: Make a fist to close the current active window (sends `Alt+F4`).
+*   **Switch Window (Forward)**: With an open palm, swipe your hand to the right to switch to the next window (sends `Alt+Tab`).
+*   **Switch Window (Backward)**: With an open palm, swipe your hand to the left to switch to the previous window (sends `Alt+Shift+Tab`).
+*   **Minimize Window**: Hold all five fingers up and swipe downwards to minimize the active window.
+*   **Scrolling**: Hold your index and middle fingers up and move your hand up or down to scroll.
+*   **Volume Control**: Make a "thumbs up" gesture and move your hand left to decrease volume or right to increase volume.
 
 ## Setup and Installation
 
@@ -39,15 +45,6 @@ This project allows you to control your computer's mouse using hand gestures cap
     ```bash
     pip install -r requirements.txt
     ```
-    *(Note: You will need to create a `requirements.txt` file. See the section below.)*
-
-### Creating the `requirements.txt` file
-
-To make it easy for others to install the dependencies, create a `requirements.txt` file by running this command in your activated virtual environment:
-
-```bash
-pip freeze > requirements.txt
-```
 
 ## How to Run
 
@@ -61,8 +58,11 @@ A window will appear showing your webcam feed. Place your hand in the frame to b
 
 ## Calibration
 
-You can fine-tune the mouse control by editing the configuration variables at the top of the `run_mouse.py` script:
+You can fine-tune the controls by editing the parameters in the `GestureController` class in `run_mouse.py`:
 
-*   `SMOOTHING`: A higher value will make the cursor movement smoother but might add a slight delay. A lower value will make it more responsive but potentially more jittery.
-*   `CLICK_DISTANCE`: This is the distance (in pixels on the camera feed) between your thumb and index finger to trigger a click. Adjust this value based on your preference and camera resolution.
-*   `CAM_ID`: If you have multiple cameras, you may need to change this value (e.g., to `1`, `2`, etc.) to select the correct one.
+*   `smoothing`: A higher value will make the cursor movement smoother but might add a slight delay.
+*   `click_distance`: The distance (in pixels on the camera feed) between your thumb and index finger to trigger a click.
+*   `swipe_threshold`: The horizontal distance (in pixels) your hand needs to move to trigger a window-switching swipe.
+*   `swipe_vertical_threshold`: The vertical distance your hand needs to move to trigger the minimize-window gesture.
+*   `scroll_threshold`: The vertical distance your hand needs to move to trigger scrolling.
+*   `cam_id`: If you have multiple cameras, you may need to change this value (e.g., to `1`, `2`, etc.).
